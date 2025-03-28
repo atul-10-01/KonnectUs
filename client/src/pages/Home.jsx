@@ -185,7 +185,7 @@ const Home = () => {
                         className='w-10 h-10 object-cover rounded-full'
                       />
                       <div className='flex-1'>
-                        <p className='text-base font-medium text-ascent-1'>
+                        <p className='text-sm font-medium text-ascent-1'>
                           {from?.firstName} {from?.lastName}
                         </p>
                         <span className='text-sm text-ascent-2'>
@@ -197,11 +197,11 @@ const Home = () => {
                     <div className='flex gap-1'>
                       <CustomButton
                         title='Accept'
-                        containerStyles='bg-[#0444a4] text-xs text-white px-1.5 py-1 rounded-full'
+                        containerStyles='bg-[#0444a4] text-xs text-white px-3 py-1.5 rounded-full'
                       />
                       <CustomButton
                         title='Deny'
-                        containerStyles='border border-[#666] text-xs text-ascent-1 px-1.5 py-1 rounded-full'
+                        containerStyles='border border-[#666] text-xs text-ascent-1 px-3 py-1.5 rounded-full'
                       />
                     </div>
                   </div>
@@ -231,7 +231,7 @@ const Home = () => {
                         className='w-10 h-10 object-cover rounded-full'
                       />
                       <div className='flex-1 '>
-                        <p className='text-base font-medium text-ascent-1'>
+                        <p className='text-sm font-medium text-ascent-1'>
                           {friend?.firstName} {friend?.lastName}
                         </p>
                         <span className='text-sm text-ascent-2'>
