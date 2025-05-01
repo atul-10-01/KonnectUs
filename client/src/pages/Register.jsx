@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, replace } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { TbSocial } from "react-icons/tb";
@@ -8,8 +8,12 @@ import { AiOutlineInteraction } from "react-icons/ai";
 import { ImConnection } from "react-icons/im";
 import { CustomButton, Loading, TextInput } from "../components";
 import { BgImage } from "../assets";
+import { apiRequest } from "../utils";
 
 const Register = () => {
+  const [errMsg, setErrMsg] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -19,11 +23,31 @@ const Register = () => {
     mode: "onChange",
   });
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
 
-  const [errMsg, setErrMsg] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const dispatch = useDispatch();
+    try{
+      const res = await apiRequest({
+        url: "/auth/register",
+        data: data,
+        method: "POST",
+      });
+      if(res?.status === 'failed'){
+        setErrMsg(res);
+      } else {
+        setErrMsg(res);
+        setInterval(()=>{
+          window.location.replace("/login");
+        }, 5000);
+      }
+      setIsSubmitting(false);
+    }
+    catch(error){
+      console.log(error);
+    }
+  };
+
+
 
   return (
     <div className='bg-bgColor w-full h-[100vh] flex items-center justify-center p-6'>

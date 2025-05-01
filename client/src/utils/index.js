@@ -1,4 +1,4 @@
-import axios from axios;
+import axios from "axios";
 const API_URL = "http://localhost:3001";
 
 export const API = axios.create({
@@ -9,7 +9,7 @@ export const API = axios.create({
 export const apiRequest = async ({ url, token, data, method }) => {
     try {
         const result = await API(url, {
-            method1: method || "GET",
+            method: method || "GET",
             data: data,
             headers: {
                 "content-type": "application/json",
