@@ -17,12 +17,14 @@ let transporter = nodemailer.createTransport({
   },
 });
 
+const apiBase = (APP_URL || "http://localhost:8800").replace(/\/$/, "");
+
 export const sendVerificationEmail = async (user, res) => {
   const { _id, email, lastName } = user;
 
   const token = _id + uuidv4();
 
-  const link = APP_URL + "users/verify/" + _id + "/" + token;
+  const link = `${apiBase}/users/verify/${_id}/${token}`; // server route, will redirect to CLIENT_URL/verify-email
 
   //   mail options
   const mailOptions = {
@@ -85,7 +87,7 @@ export const resetPasswordLink = async (user, res) => {
   const { _id, email } = user;
 
   const token = _id + uuidv4();
-  const link = APP_URL + "users/reset-password/" + _id + "/" + token;
+  const link = `${apiBase}/users/reset-password/${_id}/${token}`; // server route, will redirect to CLIENT_URL/new-password
 
   //   mail options
   const mailOptions = {

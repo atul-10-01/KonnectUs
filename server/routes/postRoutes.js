@@ -19,9 +19,12 @@ const router = express.Router();
 router.post("/create-post", userAuth, createPost);
 // get posts
 router.post("/", userAuth, getPosts);
-router.post("/:id", userAuth, getPost);
 
+// get user posts - must come before /:id route
 router.post("/get-user-post/:id", userAuth, getUserPost);
+router.post("/user", userAuth, getUserPost);
+
+router.post("/:id", userAuth, getPost);
 
 // get comments
 router.get("/comments/:postId", getComments);

@@ -6,6 +6,9 @@ import ProfileCard from "./ProfileCard";
 import FriendsCard from "./FriendsCard";
 import PostCard from "./PostCard";
 import EditProfile from "./EditProfile";
+import CreatePostModal from "./CreatePostModal";
+import MobileMenu from "./MobileMenu";
+import UnfriendModal from "./UnfriendModal";
 
 export {
   Loading,
@@ -16,4 +19,7 @@ export {
   FriendsCard,
   PostCard,
   EditProfile,
+  CreatePostModal,
+  MobileMenu,
+  UnfriendModal,
 };

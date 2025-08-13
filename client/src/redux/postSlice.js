@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  posts: {},
+  posts: [],
 };
 
 const postSlice = createSlice({
@@ -11,6 +11,10 @@ const postSlice = createSlice({
     getPosts(state, action) {
       state.posts = action.payload;
     },
+    addPost(state, action) {
+      // Add new post to the beginning of the array
+      state.posts = [action.payload, ...state.posts];
+    },
   },
 });
 
@@ -19,5 +23,11 @@ export default postSlice.reducer;
 export function SetPosts(post) {
   return (dispatch, getState) => {
     dispatch(postSlice.actions.getPosts(post));
+  };
+}
+
+export function AddPost(post) {
+  return (dispatch, getState) => {
+    dispatch(postSlice.actions.addPost(post));
   };
 }

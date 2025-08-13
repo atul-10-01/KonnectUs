@@ -1,6 +1,7 @@
 import Users from "../models/userModel.js";
 import { compareString, createJWT, hashString } from "../utils/index.js";
 import { sendVerificationEmail } from "../utils/sendEmail.js";
+import Verification from "../models/emailVerification.js";
 
 export const register = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
@@ -85,5 +86,33 @@ export const login = async (req, res, next) => {
   } catch (error) {
     console.log(error);
     res.status(404).json({ message: error.message });
+  }
+};
+
+export const resendVerification = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ message: "Email is required" });
+
+    const user = await Users.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ status: "FAILED", message: "Email address not found." });
+    }
+
+    if (user.verified) {
+      return res.status(200).json({
+        status: "ALREADY_VERIFIED",
+        message: "Email already verified.",
+      });
+    }
+
+    await Verification.deleteMany({ userId: user._id.toString() });
+
+    return sendVerificationEmail(user, res);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed to resend verification email." });
   }
 };

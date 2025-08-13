@@ -15,8 +15,7 @@ export const user = {
       createdAt: "2023-08-18T09:33:32.519Z",
       updatedAt: "2023-08-18T09:49:19.475Z",
       __v: 2,
-      profileUrl:
-        "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874470/cld-sample.jpg",
+      profileUrl: "",
     },
     {
       _id: "64df39704180b81adfe41d0b",
@@ -86,7 +85,7 @@ export const user = {
   createdAt: "2023-08-18T09:38:14.179Z",
   updatedAt: "2023-08-21T06:46:18.258Z",
   profileUrl:
-    "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874454/samples/people/boy-snow-hoodie.jpg",
+    "",
   token: "hZWFmZmU3NmMiLCJpYXQiOjE2OTIwMzY5",
 };
 
@@ -97,7 +96,7 @@ export const friends = [
     lastName: "Bruce",
     email: "john@gmail.com",
     profileUrl:
-      "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874470/cld-sample.jpg",
+      "",
   },
   {
     _id: "64df39704180b81adfe41d0b",
@@ -152,12 +151,11 @@ export const posts = [
       firstName: "Chris",
       lastName: "Omar",
       profileUrl:
-        "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874454/samples/people/boy-snow-hoodie.jpg",
+        "",
       location: "New York, USA",
     },
     description: "Hello everyone, this is a new video. check it out. thank you",
-    image:
-      "https://res.cloudinary.com/djs3wu5bg/image/upload/v1692597858/SOCIALMEDIA/hdahstpztt1fvobc13st.png",
+    image: null,
     likes: ["64df3c064180b81adfe41d4b"],
     comments: [],
     createdAt: "2023-08-21T06:04:18.297Z",
@@ -171,7 +169,7 @@ export const posts = [
       firstName: "Love",
       lastName: "Banks",
       profileUrl:
-        "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874454/samples/people/boy-snow-hoodie.jpg",
+        "",
       location: "Mumbai, India",
     },
     description:
@@ -196,8 +194,7 @@ export const posts = [
     createdAt: "2023-08-18T10:10:06.969Z",
     updatedAt: "2023-08-21T02:54:01.806Z",
     __v: 0,
-    image:
-      "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874458/samples/imagecon-group.jpg",
+    image: null,
   },
   {
     _id: "64df43714a4c0d47b5369fef",
@@ -206,7 +203,7 @@ export const posts = [
       firstName: "Code",
       lastName: "Wave",
       profileUrl:
-        "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874454/samples/people/boy-snow-hoodie.jpg",
+        "",
     },
     description:
       "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, ",
@@ -230,8 +227,7 @@ export const posts = [
     createdAt: "2023-08-18T10:07:24.023Z",
     updatedAt: "2023-08-18T10:11:00.348Z",
     __v: 0,
-    image:
-      "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874457/samples/ecommerce/leather-bag-gray.jpg",
+    image: null,
   },
   {
     _id: "64df42b04a4c0d47b5369f77",
@@ -255,7 +251,7 @@ export const posts = [
       firstName: "Jomes",
       lastName: "Gardener",
       profileUrl:
-        "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874470/cld-sample.jpg",
+        "",
     },
     description:
       " What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.  Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
@@ -272,7 +268,7 @@ export const posts = [
       firstName: "Code",
       lastName: "Wave",
       profileUrl:
-        "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874454/samples/people/boy-snow-hoodie.jpg",
+        "",
     },
     description:
       "What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Why do we use it? It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, ",
@@ -289,8 +285,7 @@ export const posts = [
     createdAt: "2023-08-18T09:50:48.398Z",
     updatedAt: "2023-08-21T03:36:36.745Z",
     __v: 0,
-    image:
-      "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874455/samples/animals/three-dogs.jpg",
+    image: null,
   },
   {
     _id: "64df3ed06c2bd953c7b43172",
@@ -299,7 +294,7 @@ export const posts = [
       firstName: "John ",
       lastName: "Smith",
       profileUrl:
-        "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874453/samples/bike.jpg",
+        "",
       location: "Mumbai, India",
     },
     description:
@@ -309,8 +304,7 @@ export const posts = [
     createdAt: "2023-08-18T09:50:08.431Z",
     updatedAt: "2023-08-21T03:44:36.962Z",
     __v: 0,
-    image:
-      "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874453/samples/bike.jpg",
+    image: null,
   },
 ];
 
@@ -338,7 +332,7 @@ export const postComments = [
       firstName: "MTech",
       lastName: "Solutions",
       profileUrl:
-        "https://res.cloudinary.com/djs3wu5bg/image/upload/v1692299991/SOCIALMEDIA/fvws1unsqytcqketv78w.png",
+        "",
       location: "Mumbai, India",
     },
     postId: "64df3ef86c2bd953c7b43193",
@@ -357,7 +351,7 @@ export const postComments = [
       firstName: "Akwasi",
       lastName: "Asante",
       profileUrl:
-        "https://res.cloudinary.com/djs3wu5bg/image/upload/v1683874470/cld-sample.jpg",
+        "",
     },
     postId: "64df3ef86c2bd953c7b43193",
     comment: "This dogs are too serious!",
@@ -370,7 +364,7 @@ export const postComments = [
           firstName: "MTech",
           lastName: "Solutions",
           profileUrl:
-            "https://res.cloudinary.com/djs3wu5bg/image/upload/v1692299991/SOCIALMEDIA/fvws1unsqytcqketv78w.png",
+            "",
           location: "Mumbai, India",
         },
         from: "MTech Solutions",

@@ -7,6 +7,11 @@ export const createPost = async (req, res, next) => {
     const { userId } = req.body.user;
     const { description, image } = req.body;
 
+    console.log("createPost called with:");
+    console.log("req.body.user:", req.body.user);
+    console.log("userId extracted:", userId);
+    console.log("description:", description);
+
     if (!description) {
       next("You must provide a description");
       return;
@@ -18,13 +23,21 @@ export const createPost = async (req, res, next) => {
       image,
     });
 
+    // Populate the user information before returning
+    const populatedPost = await Posts.findById(post._id).populate({
+      path: "userId",
+      select: "firstName lastName location profileUrl -password",
+    });
+
+    console.log("Post created with user info:", populatedPost);
+
     res.status(200).json({
       sucess: true,
       message: "Post created successfully",
-      data: post,
+      data: populatedPost,
     });
   } catch (error) {
-    console.log(error);
+    console.log("createPost error:", error);
     res.status(404).json({ message: error.message });
   }
 };
@@ -119,22 +132,40 @@ export const getPost = async (req, res, next) => {
 
 export const getUserPost = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    // Get userId from params (for /get-user-post/:id) or from body (for /user)
+    const userId = req.params.id || req.body.userId;
+    
+    console.log("getUserPost called with userId:", userId);
+    console.log("req.params:", req.params);
+    console.log("req.body:", req.body);
+    
+    if (!userId) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "User ID is required" 
+      });
+    }
 
-    const post = await Posts.find({ userId: id })
+    // Let's also check what posts exist in the database
+    const allPosts = await Posts.find().select('userId description').limit(5);
+    console.log("Sample posts in database:", allPosts);
+
+    const posts = await Posts.find({ userId: userId })
       .populate({
         path: "userId",
         select: "firstName lastName location profileUrl -password",
       })
       .sort({ _id: -1 });
 
+    console.log("Found posts for user:", posts.length);
+
     res.status(200).json({
-      sucess: true,
+      success: true,
       message: "successfully",
-      data: post,
+      data: posts,
     });
   } catch (error) {
-    console.log(error);
+    console.log("getUserPost error:", error);
     res.status(404).json({ message: error.message });
   }
 };

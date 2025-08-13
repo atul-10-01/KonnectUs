@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
@@ -8,18 +8,45 @@ import {
   ProfileCard,
   TopBar,
 } from "../components";
-import { posts } from "../assets/data";
+import { fetchPosts, getUserInfo, deletePost as deletePostUtil, likePost as likePostUtil, fetchFriendRequests } from "../utils";
 
 const Profile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  // const { posts } = useSelector((state) => state.posts);
+  const posts = useSelector((state) => state.posts.posts) || [];
   const [userInfo, setUserInfo] = useState(user);
   const [loading, setLoading] = useState(false);
+  const [friendRequests, setFriendRequests] = useState([]);
 
-  const handleDelete = () => {};
-  const handleLikePost = () => {};
+  useEffect(() => {
+    const fetchProfile = async () => {
+      setLoading(true);
+      const info = await getUserInfo(user?.token, id);
+      setUserInfo(info || user);
+      await fetchPosts(user?.token, dispatch, "/posts/user", { userId: id });
+      
+      // Fetch friend requests to check for incoming requests
+      const fr = await fetchFriendRequests(user?.token);
+      setFriendRequests(fr || []);
+      
+      setLoading(false);
+    };
+    if (user?.token) fetchProfile();
+    // eslint-disable-next-line
+  }, [id, user?.token, dispatch]);
+
+  const handleDelete = async (postId) => {
+    setLoading(true);
+    await deletePostUtil(postId, user?.token);
+    await fetchPosts(user?.token, dispatch, "/posts/user", { userId: id });
+    setLoading(false);
+  };
+
+  const handleLikePost = async (postId) => {
+    await likePostUtil({ uri: `/posts/like/${postId}`, token: user?.token });
+    await fetchPosts(user?.token, dispatch, "/posts/user", { userId: id });
+  };
 
   return (
     <>
@@ -28,7 +55,7 @@ const Profile = () => {
         <div className='w-full flex gap-2 lg:gap-4 md:pl-4 pt-5 pb-10 h-full'>
           {/* LEFT */}
           <div className='hidden w-1/3 lg:w-1/4 md:flex flex-col gap-6 overflow-y-auto'>
-            <ProfileCard user={userInfo} />
+            <ProfileCard user={userInfo} friendRequests={friendRequests} />
 
             <div className='block lg:hidden'>
               <FriendsCard friends={userInfo?.friends} />
@@ -45,8 +72,8 @@ const Profile = () => {
                   post={post}
                   key={post?._id}
                   user={user}
-                  deletePost={handleDelete}
-                  likePost={handleLikePost}
+                  deletePost={() => handleDelete(post?._id)}
+                  likePost={() => handleLikePost(post?._id)}
                 />
               ))
             ) : (

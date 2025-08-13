@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import TextInput from "./TextInput";
 import Loading from "./Loading";
 import CustomButton from "./CustomButton";
-import { postComments } from "../assets/data";
+import { fetchComments, addComment, replyComment, likePost as likePostUtil } from "../utils";
 
 const ReplyCard = ({ reply, user, handleLike }) => {
   return (
@@ -54,6 +54,7 @@ const ReplyCard = ({ reply, user, handleLike }) => {
   );
 };
 
+
 const CommentForm = ({ user, id, replyAt, getComments }) => {
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -66,7 +67,31 @@ const CommentForm = ({ user, id, replyAt, getComments }) => {
     mode: "onChange",
   });
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    setLoading(true);
+    setErrMsg("");
+    try {
+      let res;
+      if (replyAt) {
+        // This is a reply to a comment
+        res = await replyComment(user?.token, id, data.comment, replyAt, user);
+      } else {
+        // This is a regular comment on a post
+        res = await addComment(user?.token, id, data.comment, user);
+      }
+      
+      if (res?.status === "failed") {
+        setErrMsg(res);
+      } else {
+        reset();
+        if (getComments) await getComments();
+        setErrMsg({ status: "success", message: replyAt ? "Reply added" : "Comment added" });
+      }
+    } catch (e) {
+      setErrMsg({ status: "failed", message: `Failed to add ${replyAt ? "reply" : "comment"}` });
+    }
+    setLoading(false);
+  };
 
   return (
     <form
@@ -118,6 +143,7 @@ const CommentForm = ({ user, id, replyAt, getComments }) => {
   );
 };
 
+
 const PostCard = ({ post, user, deletePost, likePost }) => {
   const [showAll, setShowAll] = useState(0);
   const [showReply, setShowReply] = useState(0);
@@ -128,11 +154,16 @@ const PostCard = ({ post, user, deletePost, likePost }) => {
 
   const getComments = async () => {
     setReplyComments(0);
-
-    setComments(postComments);
+    setLoading(true);
+    const res = await fetchComments(user?.token, post?._id);
+    setComments(res || []);
     setLoading(false);
   };
-  const handleLike = async () => {};
+
+  const handleLike = async (uri) => {
+    await likePostUtil({ uri, token: user?.token });
+    await getComments();
+  };
 
   return (
     <div className='mb-2 bg-primary p-4 rounded-xl'>
@@ -185,7 +216,7 @@ const PostCard = ({ post, user, deletePost, likePost }) => {
             ))}
         </p>
 
-        {post?.image && (
+        {post?.image && post.image.trim && post.image.trim() !== "" && (
           <img
             src={post?.image}
             alt='post image'
@@ -198,7 +229,10 @@ const PostCard = ({ post, user, deletePost, likePost }) => {
         className='mt-4 flex justify-between items-center px-3 py-2 text-ascent-2
       text-base border-t border-[#66666645]'
       >
-        <p className='flex gap-2 items-center text-base cursor-pointer'>
+        <p 
+          className='flex gap-2 items-center text-base cursor-pointer'
+          onClick={() => likePost && likePost(post?._id)}
+        >
           {post?.likes?.includes(user?._id) ? (
             <BiSolidLike size={20} color='blue' />
           ) : (
@@ -267,7 +301,10 @@ const PostCard = ({ post, user, deletePost, likePost }) => {
                   <p className='text-ascent-2'>{comment?.comment}</p>
 
                   <div className='mt-2 flex gap-6'>
-                    <p className='flex gap-2 items-center text-base text-ascent-2 cursor-pointer'>
+                    <p 
+                      className='flex gap-2 items-center text-base text-ascent-2 cursor-pointer'
+                      onClick={() => handleLike(`/posts/like-comment/${comment?._id}`)}
+                    >
                       {comment?.likes?.includes(user?._id) ? (
                         <BiSolidLike size={20} color='blue' />
                       ) : (

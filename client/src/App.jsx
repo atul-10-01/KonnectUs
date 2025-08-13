@@ -1,6 +1,9 @@
 import { Outlet, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Home, Login, Profile, Register, ResetPassword } from "./pages";
+import { Home, Login, Profile, Register, ResetPassword, Friends, FriendSuggestions, Notifications } from "./pages";
+import VerifyEmail from "./pages/VerifyEmail.jsx";
+import NewPassword from "./pages/NewPassword.jsx";
+import ResendVerification from "./pages/ResendVerification.jsx";
 
 function Layout() {
   const { user } = useSelector((state) => state.user);
@@ -22,11 +25,17 @@ function App() {
         <Route element={<Layout />}>
           <Route path='/' element={<Home />} />
           <Route path='/profile/:id?' element={<Profile />} />
+          <Route path='/friends' element={<Friends />} />
+          <Route path='/friend-suggestions' element={<FriendSuggestions />} />
+          <Route path='/notifications' element={<Notifications />} />
         </Route>
 
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/reset-password' element={<ResetPassword />} />
+        <Route path='/verify-email' element={<VerifyEmail />} />
+        <Route path='/new-password' element={<NewPassword />} />
+        <Route path='/resend-verification' element={<ResendVerification />} />
       </Routes>
     </div>
   );
