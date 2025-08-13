@@ -17,7 +17,7 @@ let transporter = nodemailer.createTransport({
   },
 });
 
-const apiBase = (APP_URL || "http://localhost:8800").replace(/\/$/, "");
+const apiBase = (APP_URL || "http://localhost:3001/").replace(/\/$/, "");
 
 export const sendVerificationEmail = async (user, res) => {
   const { _id, email, lastName } = user;

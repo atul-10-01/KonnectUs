@@ -17,22 +17,16 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8800;
 
-// ====== EMAIL TESTING CONFIGURATION ======
-// This static route serves your test HTML/JS for verification & reset.
-// 🔥 REMOVE these lines after your real frontend is connected via CORS.
-app.use(
-  "/email",
-  express.static(path.join(__dirname, "views", "email"))
-);
-// ====== END EMAIL TESTING CONFIGURATION ======
-
 // Serve your React production build
 app.use(express.static(path.join(__dirname, "views", "build")));
 
 dbConnection();
 
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json({ limit: "10mb" }));
